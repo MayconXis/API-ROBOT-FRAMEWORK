@@ -14,12 +14,14 @@ Cenário 01: POST Cadastrar um novo usuário com sucesso na ReqRes API
    ${resposta}=     POST Endpoint /users 
     Validar Status Code    201    ${resposta.status_code}
     Log To Console    Novo usuario criado com sucesso!
+
 Cenário 02 : POST registrar um usuario
     [Tags]    POST
     Criar Sessão na reqres_api API
    ${resposta}=    POST Endpoint /register "eve.holt@reqres.in"
    Validar Status Code    200    ${resposta.status_code}
     Log To Console  Usuario registrado com sucesso!
+
 Cenário 03 : POST logar um usuario
     [Tags]    POST
     ${resposta}=    POST Endpoint /login
@@ -204,7 +206,7 @@ Cenario 28: PATCH Executar Custom Path sem autorização    #não consegui execu
     Log To Console    Custom path executado sem autorização.
 
 Cenario 29: PATCH Atualizar resource e ID invalido
-    [Tags]    PATCH    NEGATIVO
+    [Tags]    PATCH   
     ${payload}=    Create Dictionary
     ...    job=inexistente
     ${resposta}=    PATCH Endpoint /resource/id invalido    resource=inexistente    id=inexistente    payload=${payload}
@@ -237,7 +239,7 @@ Cenario 35: DELETE Deletar path sem autorização    #não consegui executar poi
     Log To Console    Usuário deletado sem autorização.
 
 Cenario 36: DELETE Deletar usuario com ID invalido
-    [Tags]    DELETE    NEGATIVO
+    [Tags]    DELETE
     ${resposta}=    DELETE Endpoint /users/id invalido   id=inexistente
     Validar Status Code    204    ${resposta.status_code}
     Log To Console    Erro: Deveria retornar status code 400 para usuario invalido, porém resulta somente 204.
@@ -248,3 +250,4 @@ Cenario 36: DELETE Deletar usuario com ID invalido
 
     
     
+
