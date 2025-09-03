@@ -2,6 +2,7 @@
 Library       RequestsLibrary
 Library       String
 Library       Collections
+Resource      banco_dados.resource
 
 
 *** Keywords ***
@@ -23,60 +24,52 @@ Criar Sessão na reqres_api API
     ...           headers=${headers}
 
 POST Endpoint /users
-    Cria um usuario na sessao  
-    &{payload}=    Create Dictionary
-    ...           username=maycon
-    ...           email=${EMAIL_TESTE}  
-    ...           password=teste123
-    log to console    ${payload}
+    [Arguments]    ${indice_usuario}=0
+    ${usuario}=    Obter Usuario Valido    ${indice_usuario}
     Criar Sessão na reqres_api API
-
     ${response}=    POST On Session
     ...             alias=reqres_api
     ...             url=/users
-    ...             json=${payload}
-
+    ...             json=${usuario}
     ${ID_USUARIO}=    Get From Dictionary    ${response.json()}    id
     Set Test Variable    ${ID_USUARIO}
-    [Return]    ${response}
+    Log To Console    Usuário criado: ${usuario}[username]
+    RETURN    ${response}
+
 Validar Status Code
     [Arguments]    ${status_code_esperado}    ${status_code_recebido}
     [Documentation] 
     Should Be True    ${status_code_recebido} == ${status_code_esperado}
 
-POST Endpoint /register "eve.holt@reqres.in"
-    [Documentation]
+POST Endpoint /register
+    [Arguments]    ${indice_registro}=0
+    [Documentation]    Registra usuário usando dados dinâmicos
+    ${dados_registro}=    Carregar Dados do Banco    ${BANCO_USUARIOS}
+    ${usuario_registro}=    Get From List    ${dados_registro}[usuarios_registro]    ${indice_registro}
     Criar Sessão na reqres_api API
-    ${payload}=    Create Dictionary    
-    ...         email=eve.holt@reqres.in    
-    ...         password=senha
-    ${reposta}=    POST On Session    
-    ...            reqres_api    
-    ...            /register    json=${payload}
-    Status Should Be    
-    ...    200    ${reposta}
-    ${token}=    Get From Dictionary    
-    ...    ${reposta.json()}    token
+    ${response}=    POST On Session
+    ...            reqres_api
+    ...            /register    json=${usuario_registro}
+    # Status validation removed to avoid conflicts
+    ${token}=    Get From Dictionary    ${response.json()}    token
     Log To Console    Token gerado: ${token}
     Should Not Be Empty    ${token}
-        [Return]    ${reposta}
+    RETURN    ${response}
 
 POST Endpoint /login
-    [Documentation]
-    &{payload}=    Create Dictionary
-    ...           email=eve.holt@reqres.in
-    ...           password=teste123
+    [Arguments]    ${indice_login}=0
+    [Documentation]    Faz login usando dados dinâmicos
+    ${dados_login}=    Obter Usuario Login    ${indice_login}
     Criar Sessão na reqres_api API
     ${response}=    POST On Session
     ...             alias=reqres_api
     ...             url=/login
-    ...             json=${payload}
+    ...             json=${dados_login}
     ${token}=    Get From Dictionary    ${response.json()}    token
     Should Not Be Empty    ${token}
     Log To Console    Token gerado: ${token}
-    [Return]    ${response}
     Set Global Variable    ${response}
-
+    RETURN    ${response}
 
 POST Endpoint /logout
     [Documentation]    
@@ -86,78 +79,14 @@ POST Endpoint /logout
     ...             alias=reqres_api
     ...             url=/logout
     ...             json=${payload}
-    [Return]    ${response}
-
-POST Endpoint /clerk/link-pro
-    [Documentation]
-    &{payload}=    Create Dictionary
-    ...           email=eve.holt@reqres.in
-    Criar Sessão na reqres_api API
-    ${response}=    POST On Session
-    ...             alias=reqres_api
-    ...             url=/clerk/link-pro
-    ...             json=${payload}
-    [Return]    ${response}
-
-POST Endpoint /clerk/auto-link-pro
-      [Documentation]
-    &{payload}=    Create Dictionary
-    ...           data={}    
-    ...           message="Auto Vinculado"
-    Criar Sessão na reqres_api API
-    ${response}=    POST On Session
-    ...             alias=reqres_api
-    ...             url=/clerk/auto-link-pro
-    ...             json=${payload}
-    [Return]    ${response}
-
-POST Endpoint /clerk/unlink-pro
-    [Documentation]    
-    Criar Sessão na reqres_api API
-    &{body}=    Create Dictionary
-    ${response}=    POST On Session
-    ...             alias=reqres_api
-    ...             url=/logout
-    ...             json=${body}
-    [Return]    ${response}
-
-POST Endpoint /custom-endpoints
-    [Documentation]   #Criei variáveis aleatórias, pois a API dá conflito se eu tentar customizar um que já existe.
-    ${nome_aleatorio}=    Generate Random String    length=8    chars=[LETTERS]
-    ${nome_aleatorio}=    Convert To Lower Case    ${nome_aleatorio} 
-    &{headers_body}=    Create Dictionary    Content-Type=application/json
-    &{response_data_body}=    Create Dictionary    data=Customizado
-    &{payload}=    Create Dictionary
-    ...           name=${nome_aleatorio} 
-    ...           path=/new-path-${nome_aleatorio}
-    ...           response_data=${response_data_body}
-    ...           status_code=200
-    ...           headers=${headers_body}
-    Criar Sessão na reqres_api API
-    ${response}=    POST On Session
-    ...             alias=reqres_api
-    ...             url=/custom-endpoints
-    ...             json=${payload}
-    [Return]     ${response}
-
-POST Executar Custom Path
-    [Arguments]    ${path}
-    [Documentation]
-    Criar Sessão na reqres_api API
-    &{payload}=    Create Dictionary
-    ${response}=    POST On Session
-    ...             alias=reqres_api
-    ...             url=/custom/${path}
-    ...             json=${payload}
-    ...             expected_status=403
-    [Return]    ${response}
+    RETURN    ${response}
 
 GET Listar Usuarios
     Criar Sessão na reqres_api API
     ${response}=    GET On Session    
     ...            alias=reqres_api    
     ...            url=/users
-    [Return]    ${response}
+    RETURN    ${response}
 
 GET Obter Usuario por ID
     [Arguments]    ${_id}
@@ -165,7 +94,8 @@ GET Obter Usuario por ID
     ${response}=    GET On Session    
     ...            alias=reqres_api   
     ...            url=/users/${_id}
-    [Return]    ${response}
+    RETURN    ${response}
+
 GET Obter Usuario por ID invalido
     [Arguments]    ${id}
     Criar Sessão na reqres_api API
@@ -173,104 +103,166 @@ GET Obter Usuario por ID invalido
     ...            alias=reqres_api   
     ...            url=/users/${id}
     ...            expected_status=404
-    [Return]    ${response}
+    RETURN    ${response}
+
 GET Listar Resource
     [Arguments]    ${resource}
     Criar Sessão na reqres_api API
     ${response}=    GET On Session    
     ...             alias=reqres_api    
     ...             url=/${resource}
-    [Return]    ${response}
+    RETURN    ${response}
 
-GET Obter Resource por ID
+GET Obter resource por ID
     [Arguments]    ${resource}    ${_id}
     Criar Sessão na reqres_api API
-    ${response}=    GET On Session    
-    ...            alias=reqres_api    
-    ...            url=/${resource}/${_id}
-    [Return]    ${response}
+    ${response}=    GET On Session
+    ...    alias=reqres_api
+    ...    url=/${resource}/${_id}
+    RETURN    ${response}
+
 GET Obter resource invalido
-    [Arguments]    ${resource}    ${_id}
+    [Arguments]    ${resource}    ${id}
     Criar Sessão na reqres_api API
-    ${response}=    GET On Session    
-    ...            alias=reqres_api    
-    ...            url=/${resource}/${_id}
-    ...            expected_status=404
-    [Return]    ${response}
+    ${response}=    GET On Session
+    ...    alias=reqres_api
+    ...    url=/${resource}/${id}
+    ...    expected_status=404
+    RETURN    ${response}
 
-GET Obter Status de Assinatura     
-    [Documentation]  
+GET Obter Status de Assinatura
+    [Documentation]    Gets subscription status
     Criar Sessão na reqres_api API
     ${response}=    GET On Session
     ...    alias=reqres_api
     ...    url=/clerk/subscription-status
     ...    expected_status=404
-    [Return]    ${response}
+    RETURN    ${response}
 
 GET Obter Custom Endpoints
-    [Documentation]
+    [Documentation]    Gets custom endpoints list
     Criar Sessão na reqres_api API
     ${response}=    GET On Session
     ...    alias=reqres_api
     ...    url=/custom-endpoints
-    [Return]    ${response}
+    RETURN    ${response}
 
 GET Obter Custom Endpoint por ID
-    [Documentation]  
     [Arguments]    ${_id}
+    [Documentation]    Gets custom endpoint by ID
     Criar Sessão na reqres_api API
     ${response}=    GET On Session
     ...    alias=reqres_api
     ...    url=/custom-endpoints/${_id}
-    [Return]    ${response}
+    RETURN    ${response}
+
 GET Obter Custom Endpoint por ID invalido
-    [Documentation]  
-    [Arguments]    ${_id}
+    [Arguments]    ${endpoint_id}
+    [Documentation]    Gets invalid custom endpoint
     Criar Sessão na reqres_api API
     ${response}=    GET On Session
     ...    alias=reqres_api
-    ...    url=/custom-endpoints/${_id}
+    ...    url=/custom-endpoints/${endpoint_id}
     ...    expected_status=404
-    [Return]    ${response}
+    RETURN    ${response}
+
 GET Executar Custom Path
-    [Documentation] 
     [Arguments]    ${path}
+    [Documentation]    Executes custom path
     Criar Sessão na reqres_api API
     ${response}=    GET On Session
     ...    alias=reqres_api
     ...    url=/custom/${path}
     ...    expected_status=401
-    [Return]    ${response}
+    RETURN    ${response}
 
-
-PUT Endpoint /users/id
-    [Documentation]  
-    [Arguments]    ${id}    ${payload}
+POST Endpoint /clerk/link-pro
+    [Documentation]    Links user to pro subscription
+    ${payload}=    Create Dictionary    email=eve.holt@reqres.in
     Criar Sessão na reqres_api API
-    ${response}=    PUT On Session
+    ${response}=    POST On Session
     ...    alias=reqres_api
-    ...    url=/users/${id}
+    ...    url=/clerk/link-pro
     ...    json=${payload}
-    [Return]    ${response}
+    RETURN    ${response}
 
-PUT Endpoint /users/id invalido
-    [Documentation]  
-    [Arguments]    ${id}    ${payload}
+POST Endpoint /clerk/auto-link-pro
+    [Documentation]    Auto links user to pro subscription
+    ${payload}=    Create Dictionary    data={}    message=Auto Vinculado
     Criar Sessão na reqres_api API
-    ${response}=    PUT On Session
+    ${response}=    POST On Session
     ...    alias=reqres_api
-    ...    url=/users/${id}
+    ...    url=/clerk/auto-link-pro
     ...    json=${payload}
-    [Return]    ${response}
+    RETURN    ${response}
 
-PUT Endpoint /resources/id 
-   [Arguments]    ${resource}    ${id}    ${payload}
+POST Endpoint /clerk/unlink-pro
+    [Documentation]    Unlinks user from pro subscription
+    Criar Sessão na reqres_api API
+    ${payload}=    Create Dictionary
+    ${response}=    POST On Session
+    ...    alias=reqres_api
+    ...    url=/clerk/unlink-pro
+    ...    json=${payload}
+    RETURN    ${response}
+
+POST Endpoint /custom-endpoints
+    [Documentation]    Creates custom endpoint
+    ${nome_aleatorio}=    Generate Random String    length=8    chars=[LETTERS]
+    ${nome_aleatorio}=    Convert To Lower Case    ${nome_aleatorio}
+    ${headers_body}=    Create Dictionary    Content-Type=application/json
+    ${response_data}=    Create Dictionary    data=Customizado
+    ${payload}=    Create Dictionary
+    ...    name=${nome_aleatorio}
+    ...    path=/new-path-${nome_aleatorio}
+    ...    response_data=${response_data}
+    ...    status_code=200
+    ...    headers=${headers_body}
+    Criar Sessão na reqres_api API
+    ${response}=    POST On Session
+    ...    alias=reqres_api
+    ...    url=/custom-endpoints
+    ...    json=${payload}
+    RETURN    ${response}
+
+POST Executar Custom Path
+    [Arguments]    ${path}
+    [Documentation]    Executes custom path via POST
+    Criar Sessão na reqres_api API
+    ${payload}=    Create Dictionary
+    ${response}=    POST On Session
+    ...    alias=reqres_api
+    ...    url=/custom/${path}
+    ...    json=${payload}
+    ...    expected_status=403
+    RETURN    ${response}
+
+PUT Endpoint /resources/id
+    [Arguments]    ${resource}    ${id}    ${payload}
     Criar Sessão na reqres_api API
     ${response}=    PUT On Session
     ...    alias=reqres_api
     ...    url=/${resource}/${id}
     ...    json=${payload}
-    [Return]    ${response}
+    RETURN    ${response}
+
+PUT Endpoint /users/id
+    [Arguments]    ${id}    ${payload}
+    Criar Sessão na reqres_api API
+    ${response}=    PUT On Session
+    ...    alias=reqres_api
+    ...    url=/users/${id}
+    ...    json=${payload}
+    RETURN    ${response}
+
+PUT Endpoint /users/id invalido
+    [Arguments]    ${id}    ${payload}
+    Criar Sessão na reqres_api API
+    ${response}=    PUT On Session
+    ...    alias=reqres_api
+    ...    url=/users/${id}
+    ...    json=${payload}
+    RETURN    ${response}
 
 PUT Endpoint /custom-endpoints/id
    [Documentation]

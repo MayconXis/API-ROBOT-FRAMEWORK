@@ -1,0 +1,43 @@
+name: Robot Framework Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    
+    - name: Run Robot Framework Tests
+      run: |
+        mkdir -p reports/{html,xml,logs}
+        robot --outputdir reports/html --output reports/xml/json-output.xml --log reports/logs/json-log.html --include JSON tests/
+        robot --outputdir reports/html --output reports/xml/dinamico-output.xml --log reports/logs/dinamico-log.html --include dinamico tests/
+    
+    - name: Upload Test Results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: robot-results
+        path: reports/
+    
+    - name: Publish Test Results
+      uses: EnricoMi/publish-unit-test-result-action@v2
+      if: always()
+      with:
+        files: reports/xml/*.xml

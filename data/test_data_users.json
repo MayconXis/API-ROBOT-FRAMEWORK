@@ -1,0 +1,66 @@
+{
+  "test_users": [
+    {
+      "name": "Alice Johnson",
+      "job": "Software Engineer",
+      "status": "active",
+      "department": "Engineering",
+      "email": "alice.johnson@company.com"
+    },
+    {
+      "name": "Bob Smith", 
+      "job": "QA Engineer",
+      "status": "active",
+      "department": "Quality Assurance",
+      "email": "bob.smith@company.com"
+    },
+    {
+      "name": "Carol Davis",
+      "job": "Product Manager",
+      "status": "inactive",
+      "department": "Product",
+      "email": "carol.davis@company.com"
+    },
+    {
+      "name": "David Wilson",
+      "job": "DevOps Engineer", 
+      "status": "active",
+      "department": "Engineering",
+      "email": "david.wilson@company.com"
+    },
+    {
+      "name": "Emma Brown",
+      "job": "UX Designer",
+      "status": "active", 
+      "department": "Design",
+      "email": "emma.brown@company.com"
+    },
+    {
+      "name": "Frank Miller",
+      "job": "Data Analyst",
+      "status": "inactive",
+      "department": "Analytics",
+      "email": "frank.miller@company.com"
+    }
+  ],
+  "test_scenarios": {
+    "create_user": {
+      "name": "Test User",
+      "job": "Test Engineer"
+    },
+    "update_user": {
+      "name": "Updated User",
+      "job": "Senior Engineer"
+    },
+    "invalid_user": {
+      "name": "",
+      "job": "Invalid Job"
+    }
+  },
+  "api_endpoints": {
+    "users": "/users",
+    "single_user": "/users/{id}",
+    "register": "/register",
+    "login": "/login"
+  }
+}

@@ -1,0 +1,2 @@
+# Este arquivo garante que o diretorio reports seja rastreado pelo Git
+# Relatorios sao gerados durante a execucao dos testes

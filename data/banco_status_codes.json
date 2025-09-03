@@ -1,0 +1,46 @@
+{
+  "status_codes_esperados": {
+    "POST": {
+      "criar_usuario": 201,
+      "registrar_usuario": 200,
+      "login": 200,
+      "logout": 200,
+      "vincular_pro": 201,
+      "auto_vincular_pro": 201,
+      "desvincular_pro": 200,
+      "criar_endpoint": 201,
+      "custom_path_sem_auth": 403
+    },
+    "GET": {
+      "listar_usuarios": 200,
+      "obter_usuario_valido": 200,
+      "obter_usuario_invalido": 404,
+      "listar_resource": 200,
+      "obter_resource_valido": 200,
+      "obter_resource_invalido": 404,
+      "status_assinatura_sem_auth": 404,
+      "custom_endpoints": 200,
+      "custom_endpoint_valido": 200,
+      "custom_endpoint_invalido": 404,
+      "custom_path_sem_auth": 401
+    },
+    "PUT": {
+      "atualizar_usuario": 200,
+      "atualizar_resource": 200,
+      "atualizar_custom_endpoint": 200,
+      "custom_path_sem_auth": 403,
+      "usuario_invalido": 200
+    },
+    "PATCH": {
+      "atualizar_parcial_usuario": 200,
+      "atualizar_parcial_resource": 200,
+      "custom_path_sem_auth": 403
+    },
+    "DELETE": {
+      "deletar_usuario": 204,
+      "deletar_resource": 204,
+      "deletar_custom_endpoint": 204,
+      "custom_path_sem_auth": 403
+    }
+  }
+}

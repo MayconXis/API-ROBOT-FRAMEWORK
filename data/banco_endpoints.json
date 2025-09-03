@@ -1,0 +1,50 @@
+{
+  "custom_endpoints": [
+    {
+      "id": 1,
+      "name": "endpoint-teste-1",
+      "path": "/path-teste-1",
+      "status_code": 200,
+      "response_data": {"data": "Teste 1"}
+    },
+    {
+      "id": 2,
+      "name": "endpoint-teste-2", 
+      "path": "/path-teste-2",
+      "status_code": 201,
+      "response_data": {"data": "Teste 2"}
+    }
+  ],
+  "custom_paths": [
+    {
+      "path": "users-path",
+      "status_esperado": 401
+    },
+    {
+      "path": "test-path",
+      "status_esperado": 403
+    }
+  ],
+  "payloads_atualizacao": [
+    {
+      "tipo": "usuario_completo",
+      "dados": {
+        "name": "Maycon Atualizado",
+        "job": "Senior QA"
+      }
+    },
+    {
+      "tipo": "usuario_parcial",
+      "dados": {
+        "job": "Lead QA"
+      }
+    },
+    {
+      "tipo": "resource_completo",
+      "dados": {
+        "name": "Resource Atualizado",
+        "job": "Updated Job"
+      }
+    }
+  ]
+}
