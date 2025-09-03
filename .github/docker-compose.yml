@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  robot-tests:
+    build: .
+    volumes:
+      - ./reports:/app/reports
+    environment:
+      - ROBOT_OPTIONS=--include JSON OR dinamico OR MANIPULACAO
+    command: >
+      sh -c "
+      echo 'Executando testes Robot Framework...' &&
+      robot --outputdir reports/html 
+            --output reports/xml/output.xml 
+            --log reports/logs/log.html 
+            --report reports/html/report.html 
+            --include JSON OR dinamico OR MANIPULACAO 
+            tests/ &&
+      echo 'Testes concluidos! Verifique reports/html/report.html'
+      "
