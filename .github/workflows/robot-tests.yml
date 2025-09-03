@@ -30,7 +30,7 @@ jobs:
         robot --outputdir reports/html --output reports/xml/dinamico-output.xml --log reports/logs/dinamico-log.html --include dinamico tests/
     
     - name: Upload Test Results
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v4 #ale
       if: always()
       with:
         name: robot-results
