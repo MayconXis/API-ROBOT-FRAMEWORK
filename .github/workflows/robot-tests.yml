@@ -5,14 +5,14 @@ on:
     branches: [ main, develop ]
   pull_request:
     branches: [ main ]
-  workflow_dispatch: # Permite execução manual
+  workflow_dispatch:
 
 jobs:
   test:
     runs-on: ubuntu-latest
     
     steps:
-    - name: Checkout do código
+    - name: Checkout do codigo
       uses: actions/checkout@v4
     
     - name: Configurar Python
@@ -20,63 +20,26 @@ jobs:
       with:
         python-version: '3.11'
     
-    - name: Instalar dependências
+    - name: Instalar dependencias
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     
-    - name: Criar estrutura de diretórios
+    - name: Criar estrutura de diretorios
       run: |
         mkdir -p reports/{html,xml,logs,screenshots}
     
-<<<<<<< HEAD
     - name: Executar testes JSON
       continue-on-error: true
       run: |
-        robot --outputdir reports/html \
-              --output reports/xml/json-output.xml \
-              --log reports/logs/json-log.html \
-              --report reports/html/json-report.html \
-              --include JSON \
-              --name "Testes JSON" \
-              tests/ || echo "Testes JSON concluídos com falhas"
+        robot --outputdir reports/html --output reports/xml/json-output.xml --log reports/logs/json-log.html --include JSON --name "Testes JSON" tests/
     
-    - name: Executar testes dinâmicos
+    - name: Executar testes dinamicos
       continue-on-error: true
       run: |
-        robot --outputdir reports/html \
-              --output reports/xml/dinamico-output.xml \
-              --log reports/logs/dinamico-log.html \
-              --report reports/html/dinamico-report.html \
-              --include dinamico \
-              --name "Testes Dinâmicos" \
-              tests/ || echo "Testes dinâmicos concluídos com falhas"
-    
-    - name: Executar testes de manipulação
-      continue-on-error: true
-      run: |
-        robot --outputdir reports/html \
-              --output reports/xml/manipulacao-output.xml \
-              --log reports/logs/manipulacao-log.html \
-              --report reports/html/manipulacao-report.html \
-              --include MANIPULACAO \
-              --name "Testes de Manipulação" \
-              tests/ || echo "Testes de manipulação concluídos com falhas"
-    
-    - name: Gerar relatório consolidado
-      if: always()
-      run: |
-        rebot --outputdir reports/html \
-              --output reports/xml/consolidated-output.xml \
-              --log reports/logs/consolidated-log.html \
-              --report reports/html/consolidated-report.html \
-              --name "Relatório Consolidado" \
-              reports/xml/*-output.xml || echo "Relatório consolidado gerado"
+        robot --outputdir reports/html --output reports/xml/dinamico-output.xml --log reports/logs/dinamico-log.html --include dinamico --name "Testes Dinamicos" tests/
     
     - name: Upload dos resultados
-=======
-    - name: Upload Test Results
->>>>>>> 5edb2254d5c9b601cbc07cb380bd174d12fc32e2
       uses: actions/upload-artifact@v4
       if: always()
       with:
@@ -89,17 +52,3 @@ jobs:
       if: always()
       with:
         files: reports/xml/*.xml
-<<<<<<< HEAD
-        check_name: "Resultados dos Testes Robot Framework"
-        comment_title: "📊 Relatório de Testes"
-    
-    - name: Comentário com resumo
-      if: always()
-      run: |
-        echo "## 📊 Resumo da Execução" >> $GITHUB_STEP_SUMMARY
-        echo "- ✅ Testes JSON executados" >> $GITHUB_STEP_SUMMARY
-        echo "- ✅ Testes dinâmicos executados" >> $GITHUB_STEP_SUMMARY
-        echo "- ✅ Testes de manipulação executados" >> $GITHUB_STEP_SUMMARY
-        echo "- 📁 Relatórios disponíveis nos artefatos" >> $GITHUB_STEP_SUMMARY
-=======
->>>>>>> 5edb2254d5c9b601cbc07cb380bd174d12fc32e2
