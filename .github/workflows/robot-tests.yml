@@ -83,14 +83,7 @@ jobs:
         path: reports/
         retention-days: 30
     
-    - name: Publicar resultados dos testes
-      uses: EnricoMi/publish-unit-test-result-action@v2
-      if: always()
-      with:
-        files: reports/xml/*.xml
-        check_name: "Resultados dos Testes Robot Framework"
-        comment_title: "📊 Relatório de Testes"
-    
+
     - name: Comentário com resumo
       if: always()
       run: |
