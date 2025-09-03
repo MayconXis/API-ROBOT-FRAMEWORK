@@ -127,9 +127,44 @@ api-automation-reqres/
 35. Cenario 35: DELETE Deletar path sem autorização  
 36. Cenario 36: DELETE Deletar usuario com ID invalido
 
+
+# Sistema de Banco de Dados Dinâmico para Robot Framework
+
+## Visão Geral
+Este sistema implementa um banco de dados JSON dinâmico para testes automatizados com Robot Framework, permitindo:
+- Gerenciamento centralizado de dados de teste  
+- Testes data-driven  
+- Manipulação dinâmica de dados JSON  
+- Reutilização de dados entre diferentes cenários  
+
+## Estrutura dos Arquivos
+
+### Bancos de Dados JSON
+- `data/banco_usuarios.json` - Dados de usuários, IDs e recursos  
+- `data/banco_endpoints.json` - Dados de endpoints e payloads  
+- `data/banco_status_codes.json` - Status codes esperados por operação  
+
+### Resources
+- `resources/banco_dados.resource` - Keywords para carregar dados dos bancos  
+- `resources/manipular_json.resource` - Keywords para manipular dados JSON  
+- `resources/api_usuarios.resource` - Keywords da API (modificado para usar dados dinâmicos)  
+
+### Testes
+- `tests/api_usuarios_test.robot` - Testes originais modificados  
+- `tests/api_usuarios_dinamico_test.robot` - Testes data-driven  
+- `tests/manipulacao_json_test.robot` - Testes de manipulação JSON  
+
+## Como Usar
+
+### 1. Carregar Dados do Banco
+```robot
+${usuario}=    Obter Usuario Valido    indice=0
+${id_valido}=    Obter ID Valido    indice=1
+${status_esperado}=    Obter Status Code Esperado    POST    criar_usuario
+```
 ---
 
-## 🏁 Conclusão
+### 🏁 Conclusão
 Este projeto foi desenvolvido com o objetivo de exercitar boas práticas em **automação de testes de API** utilizando o **Robot Framework**.  
 Através da integração com a **Reqres API**, foi possível validar diferentes **verbos HTTP**, explorar cenários **positivos e negativos**, além de garantir **organização e manutenibilidade** do código com o uso de **keywords reutilizáveis**.  
 O trabalho contribuiu para aprimorar minha experiência prática com **testes automatizados**, consolidando conhecimentos técnicos importantes e preparando terreno para desafios mais complexos em projetos futuros. 🚀  
