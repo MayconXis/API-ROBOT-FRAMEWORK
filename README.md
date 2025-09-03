@@ -22,11 +22,14 @@ Além disso, foram incluídos cenários envolvendo **autenticação**, **valida�
 - **Robot Framework**
 - Dependências listadas em `requirements.txt`
 
+<<<<<<< HEAD
 ## 🔒 Segurança
 - **Credenciais**: Utiliza placeholders genéricos por segurança
 - **Configuração**: Consulte `SEGURANCA.md` para configurar senhas reais
 - **Boas Práticas**: Nunca commitar credenciais reais no repositório
 
+=======
+>>>>>>> 97bcceaf9a335db17665393bd79f8f08983bf73f
 ---
 api-automation-reqres/
 │
@@ -132,7 +135,10 @@ api-automation-reqres/
 35. Cenario 35: DELETE Deletar path sem autorização  
 36. Cenario 36: DELETE Deletar usuario com ID invalido
 
+<<<<<<< HEAD
 ---
+=======
+>>>>>>> 97bcceaf9a335db17665393bd79f8f08983bf73f
 
 # Sistema de Banco de Dados Dinâmico para Robot Framework
 
@@ -170,8 +176,12 @@ ${status_esperado}=    Obter Status Code Esperado    POST    criar_usuario
 ```
 ---
 
+<<<<<<< HEAD
 
 ## 🏁 Conclusão
+=======
+### 🏁 Conclusão
+>>>>>>> 97bcceaf9a335db17665393bd79f8f08983bf73f
 Este projeto foi desenvolvido com o objetivo de exercitar boas práticas em **automação de testes de API** utilizando o **Robot Framework**.  
 Através da integração com a **Reqres API**, foi possível validar diferentes **verbos HTTP**, explorar cenários **positivos e negativos**, além de garantir **organização e manutenibilidade** do código com o uso de **keywords reutilizáveis**.  
 O trabalho contribuiu para aprimorar minha experiência prática com **testes automatizados**, consolidando conhecimentos técnicos importantes e preparando terreno para desafios mais complexos em projetos futuros. 🚀  
@@ -180,5 +190,9 @@ O trabalho contribuiu para aprimorar minha experiência prática com **testes au
 
 👨‍💻 Desenvolvido por: **Maycon Douglas da Silva**  
 📧 Contato: [mayconcontacts@gmail.com]  
+<<<<<<< HEAD
 🌐 GitHub: [https://github.com/MayconXis]  
 
+=======
+🌐 GitHub: [https://github.com/MayconXis]
+>>>>>>> 97bcceaf9a335db17665393bd79f8f08983bf73f
