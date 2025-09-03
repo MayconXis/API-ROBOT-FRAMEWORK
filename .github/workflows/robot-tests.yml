@@ -29,6 +29,7 @@ jobs:
       run: |
         mkdir -p reports/{html,xml,logs,screenshots}
     
+<<<<<<< HEAD
     - name: Executar testes JSON
       continue-on-error: true
       run: |
@@ -73,6 +74,9 @@ jobs:
               reports/xml/*-output.xml || echo "Relatório consolidado gerado"
     
     - name: Upload dos resultados
+=======
+    - name: Upload Test Results
+>>>>>>> 5edb2254d5c9b601cbc07cb380bd174d12fc32e2
       uses: actions/upload-artifact@v4
       if: always()
       with:
@@ -85,6 +89,7 @@ jobs:
       if: always()
       with:
         files: reports/xml/*.xml
+<<<<<<< HEAD
         check_name: "Resultados dos Testes Robot Framework"
         comment_title: "📊 Relatório de Testes"
     
@@ -96,3 +101,5 @@ jobs:
         echo "- ✅ Testes dinâmicos executados" >> $GITHUB_STEP_SUMMARY
         echo "- ✅ Testes de manipulação executados" >> $GITHUB_STEP_SUMMARY
         echo "- 📁 Relatórios disponíveis nos artefatos" >> $GITHUB_STEP_SUMMARY
+=======
+>>>>>>> 5edb2254d5c9b601cbc07cb380bd174d12fc32e2
