@@ -24,32 +24,27 @@ Além disso, foram incluídos cenários envolvendo **autenticação**, **valida�
 - **JSONLibrary** para manipulação de dados JSON
 - Dependências listadas em `requirements.txt`
 
+<<<<<<< HEAD
 ## 🔒 Segurança
 - **Credenciais**: Utiliza placeholders genéricos por segurança
 - **Configuração**: Consulte `SEGURANCA.md` para configurar senhas reais
 - **Boas Práticas**: Nunca commitar credenciais reais no repositório
-## 📁 Estrutura do Projeto
+---
+api-automation-reqres/
+│
 
-```
-API-ROBOT-FRAMEWORK/
-├── common/                           # Arquivos comuns e reutilizáveis
-│   ├── base.robot                   # Configurações globais e sessão
-│   ├── keywords.robot               # Keywords consolidadas
-│   ├── dynamic_user_helper.robot    # Helper para usuários dinâmicos
-│   └── static_variables.robot       # Variáveis estáticas
-├── tests/                           # Arquivos de teste
-│   ├── api_usuarios_test.robot      # Testes principais (36 cenários)
-│   └── api_usuarios_dynamic_tests.robot # Testes com dados dinâmicos
-├── resources/                       # Recursos e bibliotecas
-│   ├── api_usuarios.resource        # Keywords da API
-│   ├── banco_dados.resource         # Manipulação de dados JSON
-│   └── manipular_json.resource      # Utilitários JSON
-├── data/                           # Bancos de dados JSON
-│   ├── banco_usuarios.json         # Dados de usuários
-│   ├── banco_endpoints.json        # Configurações de endpoints
-│   └── banco_status_codes.json     # Status codes esperados
-└── reports/                        # Relatórios de execução
-```
+├── tests/
+│ 
+
+└── api_usuarios_test.robot       ---> Arquivo principal com os cenários de teste
+│
+
+├── resources/
+│  
+└── api_usuarios.resource      ---> Keywords dos cenários de teste   
+│
+
+├── requirements.txt          ---> Dependências do projeto
 
 ---
 
@@ -177,7 +172,10 @@ ${status_esperado}=    Obter Status Code Esperado    POST    criar_usuario
 ```
 ---
 
+
+
 ## 🏁 Conclusão
+
 Este projeto foi desenvolvido com o objetivo de exercitar boas práticas em **automação de testes de API** utilizando o **Robot Framework**.  
 Através da integração com a **Reqres API**, foi possível validar diferentes **verbos HTTP**, explorar cenários **positivos e negativos**, além de garantir **organização e manutenibilidade** do código com o uso de **keywords reutilizáveis**.  
 O trabalho contribuiu para aprimorar minha experiência prática com **testes automatizados**, consolidando conhecimentos técnicos importantes e preparando terreno para desafios mais complexos em projetos futuros. 🚀  
@@ -227,4 +225,6 @@ ${id}=         Gerar ID Aleatorio    1    999
 ---
 👨‍💻 Desenvolvido por: **Maycon Douglas da Silva**  
 📧 Contato: [mayconcontacts@gmail.com]  
-🌐 GitHub: [https://github.com/MayconXis]
+🌐 GitHub: [https://github.com/MayconXis]  
+
+
