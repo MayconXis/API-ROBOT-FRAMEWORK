@@ -1,0 +1,50 @@
+{
+  "usuarios_validos": [
+    {
+      "id": 1,
+      "username": "maycon",
+      "email": "maycon@teste.com",
+      "password": "<senha_teste>",
+      "name": "Maycon Douglas",
+      "job": "QA Engineer"
+    },
+    {
+      "id": 2,
+      "username": "ana",
+      "email": "ana@teste.com", 
+      "password": "<senha_teste>",
+      "name": "Ana Silva",
+      "job": "Developer"
+    },
+    {
+      "id": 3,
+      "username": "carlos",
+      "email": "carlos@teste.com",
+      "password": "<senha_teste>",
+      "name": "Carlos Santos",
+      "job": "Tester"
+    }
+  ],
+  "usuarios_login": [
+    {
+      "email": "eve.holt@reqres.in",
+      "password": "<senha_api>",
+      "token_esperado": true
+    },
+    {
+      "email": "eve.holt@reqres.in", 
+      "password": "<senha_teste>",
+      "token_esperado": true
+    }
+  ],
+  "usuarios_registro": [
+    {
+      "email": "eve.holt@reqres.in",
+      "password": "<senha_api>",
+      "status_esperado": 200
+    }
+  ],
+  "ids_validos": [1, 2, 3, 4, 5, 6],
+  "ids_invalidos": [999, 111111111111111, "inexistente", 0, -1],
+  "recursos": ["users", "unknown", "colors"]
+}

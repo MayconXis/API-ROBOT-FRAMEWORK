@@ -4,7 +4,7 @@
       "id": 1,
       "username": "maycon",
       "email": "maycon@teste.com",
-      "password": "teste123",
+      "password": "<senha_teste>",
       "name": "Maycon Douglas",
       "job": "QA Engineer"
     },
@@ -12,7 +12,7 @@
       "id": 2,
       "username": "ana",
       "email": "ana@teste.com", 
-      "password": "senha456",
+      "password": "<senha_teste>",
       "name": "Ana Silva",
       "job": "Developer"
     },
@@ -20,7 +20,7 @@
       "id": 3,
       "username": "carlos",
       "email": "carlos@teste.com",
-      "password": "pass789",
+      "password": "<senha_teste>",
       "name": "Carlos Santos",
       "job": "Tester"
     }
@@ -28,19 +28,19 @@
   "usuarios_login": [
     {
       "email": "eve.holt@reqres.in",
-      "password": "cityslicka",
+      "password": "<senha_api>",
       "token_esperado": true
     },
     {
       "email": "eve.holt@reqres.in", 
-      "password": "teste123",
+      "password": "<senha_teste>",
       "token_esperado": true
     }
   ],
   "usuarios_registro": [
     {
       "email": "eve.holt@reqres.in",
-      "password": "pistol",
+      "password": "<senha_api>",
       "status_esperado": 200
     }
   ],

@@ -31,10 +31,10 @@ Cenario 02: Modificar Dados JSON Existentes
     ...                  active=true
     
     Set To Dictionary    ${json_original}    name=Nome Atualizado
-    Set To Dictionary    ${json_original}    job=Desenvolvedor Senior
+    Set To Dictionary    ${json_original}    job=Desenvolvedor 
     
     Should Be Equal    ${json_original}[name]    Nome Atualizado
-    Should Be Equal    ${json_original}[job]     Desenvolvedor Senior
+    Should Be Equal    ${json_original}[job]     Desenvolvedor 
     Log    JSON modificado com sucesso: ${json_original}
 
 Cenario 03: Extrair Dados de JSON Simulado

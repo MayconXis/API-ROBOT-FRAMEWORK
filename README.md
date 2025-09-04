@@ -3,15 +3,15 @@
 ## 📖 Visão Geral do Projeto
 Este projeto foi desenvolvido como parte do **desafio técnico da Compass UOL**, com o objetivo de **aprofundar o conhecimento em automação de testes de API utilizando Robot Framework**.  
 
-A automação foi construída utilizando o **Robot Framework**, que permite criar testes de aceitação e **TDD** .  
+A automação foi construída utilizando o **Robot Framework**, que permite criar testes de aceitação e **TDD**.  
 
 O foco principal está na **validação de requisições HTTP** e na interação com uma **API RESTful**. Para isso, foi utilizada a **[Reqres API](https://reqres.in/)** como ambiente de testes, possibilitando a exploração dos verbos HTTP:
 
-- **GET**
-- **POST**
-- **PUT**
-- **PATCH**
-- **DELETE**
+- **GET** - Consulta de dados
+- **POST** - Criação de recursos
+- **PUT** - Atualização completa
+- **PATCH** - Atualização parcial
+- **DELETE** - Remoção de recursos
 
 Além disso, foram incluídos cenários envolvendo **autenticação**, **validação de erros** e **respostas em diferentes contextos**.
 
@@ -20,32 +20,36 @@ Além disso, foram incluídos cenários envolvendo **autenticação**, **valida�
 ## 🛠️ Requisitos e Tecnologias
 - **Python 3.6+**
 - **Robot Framework**
+- **RequestsLibrary** para requisições HTTP
+- **JSONLibrary** para manipulação de dados JSON
 - Dependências listadas em `requirements.txt`
 
-<<<<<<< HEAD
 ## 🔒 Segurança
 - **Credenciais**: Utiliza placeholders genéricos por segurança
 - **Configuração**: Consulte `SEGURANCA.md` para configurar senhas reais
 - **Boas Práticas**: Nunca commitar credenciais reais no repositório
+## 📁 Estrutura do Projeto
 
-=======
->>>>>>> 97bcceaf9a335db17665393bd79f8f08983bf73f
----
-api-automation-reqres/
-│
-
-├── tests/
-│ 
-
-└── api_usuarios_test.robot       ---> Arquivo principal com os cenários de teste
-│
-
-├── resources/
-│  
-└── api_usuarios.resource      ---> Keywords dos cenários de teste   
-│
-
-├── requirements.txt          ---> Dependências do projeto
+```
+API-ROBOT-FRAMEWORK/
+├── common/                           # Arquivos comuns e reutilizáveis
+│   ├── base.robot                   # Configurações globais e sessão
+│   ├── keywords.robot               # Keywords consolidadas
+│   ├── dynamic_user_helper.robot    # Helper para usuários dinâmicos
+│   └── static_variables.robot       # Variáveis estáticas
+├── tests/                           # Arquivos de teste
+│   ├── api_usuarios_test.robot      # Testes principais (36 cenários)
+│   └── api_usuarios_dynamic_tests.robot # Testes com dados dinâmicos
+├── resources/                       # Recursos e bibliotecas
+│   ├── api_usuarios.resource        # Keywords da API
+│   ├── banco_dados.resource         # Manipulação de dados JSON
+│   └── manipular_json.resource      # Utilitários JSON
+├── data/                           # Bancos de dados JSON
+│   ├── banco_usuarios.json         # Dados de usuários
+│   ├── banco_endpoints.json        # Configurações de endpoints
+│   └── banco_status_codes.json     # Status codes esperados
+└── reports/                        # Relatórios de execução
+```
 
 ---
 
@@ -135,10 +139,7 @@ api-automation-reqres/
 35. Cenario 35: DELETE Deletar path sem autorização  
 36. Cenario 36: DELETE Deletar usuario com ID invalido
 
-<<<<<<< HEAD
 ---
-=======
->>>>>>> 97bcceaf9a335db17665393bd79f8f08983bf73f
 
 # Sistema de Banco de Dados Dinâmico para Robot Framework
 
@@ -176,23 +177,54 @@ ${status_esperado}=    Obter Status Code Esperado    POST    criar_usuario
 ```
 ---
 
-<<<<<<< HEAD
-
 ## 🏁 Conclusão
-=======
-### 🏁 Conclusão
->>>>>>> 97bcceaf9a335db17665393bd79f8f08983bf73f
 Este projeto foi desenvolvido com o objetivo de exercitar boas práticas em **automação de testes de API** utilizando o **Robot Framework**.  
 Através da integração com a **Reqres API**, foi possível validar diferentes **verbos HTTP**, explorar cenários **positivos e negativos**, além de garantir **organização e manutenibilidade** do código com o uso de **keywords reutilizáveis**.  
 O trabalho contribuiu para aprimorar minha experiência prática com **testes automatizados**, consolidando conhecimentos técnicos importantes e preparando terreno para desafios mais complexos em projetos futuros. 🚀  
 
 ---
+# 🔄 Refatoração do Projeto - Documentação
 
+## 📁 Nova Estrutura de Pastas
+
+```
+API-ROBOT-FRAMEWORK/
+├── common/                    # 🆕 Pasta consolidada
+│   ├── base.robot            # 🆕 Configurações globais e sessão universal
+│   ├── keywords.robot        # 🆕 Todas as keywords consolidadas
+│   ├── static_variables.robot # 🆕 Variáveis estáticas movidas
+│   └── reusable_codes.robot  # 🆕 Códigos reutilizáveis movidos
+├── tests/                     # ✅ Mantida - arquivos de teste
+│   ├── api_usuarios_test.robot          # ✅ Atualizado para nova estrutura
+│   ├── api_usuarios_refatorado.robot   # 🆕 Versão com payloads dinâmicos
+│   └── [outros arquivos de teste...]
+├── resources/                 # ✅ Mantida - recursos originais
+├── data/                      # ✅ Mantida - bancos de dados JSON
+└── reports/                   # ✅ Mantida - relatórios
+```
+## 🔧 Funções Dinâmicas Criadas
+
+### **Geradores de Payload**
+```robot
+${payload}=    Gerar Payload Usuario Dinamico    completo
+${payload}=    Gerar Payload Login Dinamico
+${payload}=    Gerar Payload Registro Dinamico
+```
+
+### **Criação de Usuários Reais**
+```robot
+${usuario_criado}=    Criar Usuario Dinamico
+# Retorna: {id, name, job, email, createdAt}
+```
+
+### **Geradores de Dados**
+```robot
+${string}=     Gerar String Aleatoria    8
+${timestamp}=  Gerar Timestamp
+${email}=      Gerar Email Aleatorio
+${id}=         Gerar ID Aleatorio    1    999
+```
+---
 👨‍💻 Desenvolvido por: **Maycon Douglas da Silva**  
 📧 Contato: [mayconcontacts@gmail.com]  
-<<<<<<< HEAD
-🌐 GitHub: [https://github.com/MayconXis]  
-
-=======
 🌐 GitHub: [https://github.com/MayconXis]
->>>>>>> 97bcceaf9a335db17665393bd79f8f08983bf73f

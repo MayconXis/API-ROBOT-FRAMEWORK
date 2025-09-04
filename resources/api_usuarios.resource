@@ -50,7 +50,6 @@ POST Endpoint /register
     ${response}=    POST On Session
     ...            reqres_api
     ...            /register    json=${usuario_registro}
-    # Status validation removed to avoid conflicts
     ${token}=    Get From Dictionary    ${response.json()}    token
     Log To Console    Token gerado: ${token}
     Should Not Be Empty    ${token}

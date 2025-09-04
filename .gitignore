@@ -1,0 +1,80 @@
+# Arquivos de sistema Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Cache AMD/GPU e arquivos de sistema
+AppData/
+*.parc
+.vscode/extensions/
+
+# Arquivos temporários Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Ambientes virtuais
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Robot Framework
+*.html
+*.xml
+log.html
+output.xml
+report.html
+selenium-screenshot-*.png
+
+# Relatórios (manter estrutura, ignorar conteúdo)
+reports/*.html
+reports/*.xml
+reports/logs/*
+reports/screenshots/*
+!reports/.gitkeep
+!reports/README.md
+
+# IDEs (manter apenas configurações essenciais)
+.vscode/extensions/
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# Arquivos de backup
+*.bak
+*.backup
+*~
+
+# Arquivos temporários do sistema
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes

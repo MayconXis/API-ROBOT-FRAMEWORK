@@ -1,12 +1,10 @@
 *** Settings ***
 Resource    ../resources/api_usuarios.resource
 Resource    ../resources/banco_dados.resource
-Documentation    Keywords de teste para a API reqres.in usando dados dinâmicos
+Documentation    Primeira Versão Original do projeto
 Library          RequestsLibrary
 Library          String
 Library          Collections
-
-*** Variables ***
 
 *** Test Cases ***
 Cenário 01: POST Cadastrar um novo usuário com sucesso na ReqRes API
