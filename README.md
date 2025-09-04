@@ -24,7 +24,6 @@ Além disso, foram incluídos cenários envolvendo **autenticação**, **valida�
 - **JSONLibrary** para manipulação de dados JSON
 - Dependências listadas em `requirements.txt`
 
-<<<<<<< HEAD
 ## 🔒 Segurança
 - **Credenciais**: Utiliza placeholders genéricos por segurança
 - **Configuração**: Consulte `SEGURANCA.md` para configurar senhas reais
